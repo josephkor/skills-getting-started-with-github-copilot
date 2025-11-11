@@ -109,6 +109,28 @@ section h3 {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
 }
 
+/* small remove button next to each participant */
+.participant-remove {
+  background: transparent;
+  border: none;
+  color: #c62828;
+  font-weight: 700;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+  border-radius: 4px;
+}
+.participant-remove:hover {
+  background: rgba(198, 40, 40, 0.08);
+}
+
+/* safety: ensure no bullets for participant lists */
+.participants-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
 /* Message area */
 #message { transition: opacity 0.18s ease; padding: 8px 12px; border-radius: 6px; display: inline-block; }
 #message.success { background: #e6f4ea; color: #1b5e20; border: 1px solid rgba(30, 100, 30, 0.08); }
