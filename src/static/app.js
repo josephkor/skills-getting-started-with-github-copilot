@@ -17,14 +17,41 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
         activityCard.className = "activity-card";
+        activityCard.style.border = "1px solid #ddd";
+        activityCard.style.borderRadius = "8px";
+        activityCard.style.padding = "16px";
+        activityCard.style.marginBottom = "20px";
+        activityCard.style.background = "#f9f9f9";
+        activityCard.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
 
         const spotsLeft = details.max_participants - details.participants.length;
 
+        // Participants section
+        let participantsHTML = "";
+        if (details.participants.length > 0) {
+          participantsHTML = `
+            <div style="margin-top: 10px;">
+              <strong>Participants:</strong>
+              <ul style="margin: 6px 0 0 18px; padding: 0;">
+                ${details.participants.map(p => `<li style="margin-bottom: 2px;">${p}</li>`).join("")}
+              </ul>
+            </div>
+          `;
+        } else {
+          participantsHTML = `
+            <div style="margin-top: 10px;">
+              <strong>Participants:</strong>
+              <span style="color: #888;">No one has signed up yet.</span>
+            </div>
+          `;
+        }
+
         activityCard.innerHTML = `
-          <h4>${name}</h4>
+          <h4 style="margin-top:0;">${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          ${participantsHTML}
         `;
 
         activitiesList.appendChild(activityCard);
