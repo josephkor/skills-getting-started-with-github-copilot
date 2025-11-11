@@ -57,41 +57,63 @@ section h3 {
   color: #1a237e;
 }
 
+/* Activity card base */
 .activity-card {
-  margin-bottom: 15px;
-  padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.activity-card h4 {
-  margin-bottom: 10px;
-  color: #0066cc;
+/* Title & text */
+.activity-card .activity-title {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+}
+.activity-card .activity-desc {
+  margin: 6px 0;
+  color: #333;
+}
+.activity-card .activity-schedule {
+  margin: 6px 0;
+  color: #444;
 }
 
-.activity-card p {
-  margin-bottom: 8px;
+/* Availability */
+.availability { margin: 8px 0; }
+.availability .available { color: #2e7d32; font-weight: 600; }
+.availability .full { color: #c62828; font-weight: 700; }
+
+/* Participants */
+.participants { margin-top: 12px; display: block; }
+.participants .no-participants { color: #888; margin-left: 8px; }
+
+/* pill-style list */
+.participants-list {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.participant-pill {
+  background: #eef6ff;
+  color: #0b3d91;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
+/* Message area */
+#message { transition: opacity 0.18s ease; padding: 8px 12px; border-radius: 6px; display: inline-block; }
+#message.success { background: #e6f4ea; color: #1b5e20; border: 1px solid rgba(30, 100, 30, 0.08); }
+#message.error { background: #ffebee; color: #b71c1c; border: 1px solid rgba(180, 20, 20, 0.06); }
+.hidden { display: none !important; }
 
 button {
   background-color: #1a237e;

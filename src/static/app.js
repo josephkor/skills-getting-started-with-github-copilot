@@ -4,6 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // small helper to avoid HTML injection
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -17,40 +27,42 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
         activityCard.className = "activity-card";
-        activityCard.style.border = "1px solid #ddd";
-        activityCard.style.borderRadius = "8px";
-        activityCard.style.padding = "16px";
-        activityCard.style.marginBottom = "20px";
-        activityCard.style.background = "#f9f9f9";
-        activityCard.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Participants section
+        // Availability styled using classes
+        const availabilityHTML =
+          spotsLeft > 0
+            ? `<p class="availability"> <strong>Availability:</strong> <span class="available">${spotsLeft} spots left</span></p>`
+            : `<p class="availability"> <strong>Availability:</strong> <span class="full">Full</span></p>`;
+
+        // Participants section (uses classes so CSS handles visuals)
         let participantsHTML = "";
         if (details.participants.length > 0) {
           participantsHTML = `
-            <div style="margin-top: 10px;">
-              <strong>Participants:</strong>
-              <ul style="margin: 6px 0 0 18px; padding: 0;">
-                ${details.participants.map(p => `<li style="margin-bottom: 2px;">${p}</li>`).join("")}
+            <div class="participants">
+              <strong>Participants (${details.participants.length}):</strong>
+              <ul class="participants-list">
+                ${details.participants
+                  .map((p) => `<li class="participant-pill">${escapeHtml(p)}</li>`)
+                  .join("")}
               </ul>
             </div>
           `;
         } else {
           participantsHTML = `
-            <div style="margin-top: 10px;">
+            <div class="participants">
               <strong>Participants:</strong>
-              <span style="color: #888;">No one has signed up yet.</span>
+              <span class="no-participants">No one has signed up yet.</span>
             </div>
           `;
         }
 
         activityCard.innerHTML = `
-          <h4 style="margin-top:0;">${name}</h4>
-          <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <h4 class="activity-title">${escapeHtml(name)}</h4>
+          <p class="activity-desc">${escapeHtml(details.description)}</p>
+          <p class="activity-schedule"><strong>Schedule:</strong> ${escapeHtml(details.schedule)}</p>
+          ${availabilityHTML}
           ${participantsHTML}
         `;
 
